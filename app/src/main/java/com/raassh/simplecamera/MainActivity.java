@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import java.io.ByteArrayOutputStream;
 public class MainActivity extends AppCompatActivity {
     Button btnCam;
     Button btnList;
-    Button btnSend;
+    ImageButton btnSend;
     ImageView imgView;
     EditText etServer;
 
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bitmap bm = ((BitmapDrawable)imgView.getDrawable()).getBitmap();
-
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();

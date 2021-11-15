@@ -8,77 +8,90 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="314dp"
+        android:layout_height="268dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="0dp"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCam"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintVertical_bias="0.907"
+        app:srcCompat="@drawable/ic_photo" />
 
-    <Button
-        android:id="@+id/btnCam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Ambil Foto"
-        app:layout_constraintBottom_toTopOf="@+id/etServer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:text="List Foto"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAllCaps="false"
+        android:layout_marginBottom="16dp"
+        android:drawableRight="@drawable/ic_baseline_photo_library_24"
+        android:drawableTint="@color/white"
+        android:maxLines="1"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="16dp"
+        android:text="Gallery"
+        app:layout_constraintBottom_toTopOf="@+id/etServer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.10"
-        app:layout_constraintStart_toEndOf="@+id/group2"
-        app:layout_constraintTop_toBottomOf="@+id/etServer" />
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/btnCam"
+        tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/btnSend"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:text="Kirim Foto"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/group2"
-        app:layout_constraintHorizontal_bias="0.90"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group2"
+        android:id="@+id/btnCam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:drawableRight="@drawable/ic_baseline_add_a_photo_24"
+        android:drawableTint="@color/white"
+        android:padding="8dp"
+        android:text="Take a Pic"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/etServer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCam" />
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </Button>
 
     <EditText
         android:id="@+id/etServer"
-        android:layout_width="wrap_content"
+        android:layout_width="259dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
+        android:layout_marginBottom="188dp"
+        android:background="@drawable/back"
         android:hint="host:port"
         android:inputType="textPersonName"
-        android:text="192.168.1.2:8000"
-        app:layout_constraintBottom_toTopOf="@+id/btnSend"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp"
+        android:text="192.168.43.185:8000"
+        android:textColor="#343a40"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="188dp"
+        android:background="@drawable/ic_baseline_send_24"
+        android:backgroundTint="#495057"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintStart_toEndOf="@+id/etServer"
+        app:layout_constraintTop_toBottomOf="@+id/btnList"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
