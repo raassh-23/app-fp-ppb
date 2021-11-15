@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://" + etServer.getText().toString() +"/api/image/list";
+                String url = getString(R.string.apiUrl, "image/list");
 
                 Intent it = new Intent(MainActivity.this, ListFoto.class);
                 it.putExtra("url", url);
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSend.setEnabled(false);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("MAIN", "JSONException: " + e.getMessage());
                 }
 
-                String url = "http://" + etServer.getText().toString() + "/api/image/upload";
+                String url = getString(R.string.apiUrl, "image/upload");
                 JsonObjectRequest uploadRequest = new JsonObjectRequest
                         (Request.Method.POST, url, requestJson, new Response.Listener<JSONObject>() {
                             @Override

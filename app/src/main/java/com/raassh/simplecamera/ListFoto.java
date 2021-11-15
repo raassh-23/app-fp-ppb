@@ -59,9 +59,8 @@ public class ListFoto extends AppCompatActivity {
 
                                         String name = foto.getString("name");
                                         String link = foto.getString("link");
-                                        String base64 = foto.getString("base64");
 
-                                        listFoto.add(new Foto(name, link, base64));
+                                        listFoto.add(new Foto(name, link));
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();

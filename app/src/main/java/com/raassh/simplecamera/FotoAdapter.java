@@ -14,12 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.util.List;
 
 public class FotoAdapter extends ArrayAdapter<Foto> {
     private static class ViewHolder{
         TextView tvName;
-        ImageView ivFoto;
+        NetworkImageView nivFoto;
     }
 
     public FotoAdapter(@NonNull Context context, int resource, @NonNull List<Foto> objects) {
@@ -38,18 +40,15 @@ public class FotoAdapter extends ArrayAdapter<Foto> {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.foto_item, parent, false);
             viewHolder.tvName = convertView.findViewById(R.id.tvName);
-            viewHolder.ivFoto = convertView.findViewById(R.id.ivFoto);
+            viewHolder.nivFoto = convertView.findViewById(R.id.nivFoto);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        byte[] decodedBase64 = Base64.decode(dtFoto.getBase64(), Base64.NO_WRAP);
-        Bitmap img = BitmapFactory.decodeByteArray(decodedBase64, 0, decodedBase64.length);
-
         viewHolder.tvName.setText(dtFoto.getName());
-        viewHolder.ivFoto.setImageBitmap(img);
+        viewHolder.nivFoto.setImageUrl(dtFoto.getLink(), RequestQueueSingleton.getInstance(getContext()).getImageLoader());
 
         return convertView;
     }

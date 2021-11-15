@@ -3,12 +3,10 @@ package com.raassh.simplecamera;
 public class Foto {
     private String name;
     private String link;
-    private String base64;
 
-    public Foto(String name, String link, String base64) {
+    public Foto(String name, String link) {
         this.name = name;
         this.link = link;
-        this.base64 = base64;
     }
 
     public String getName() {
@@ -19,7 +17,5 @@ public class Foto {
         return link;
     }
 
-    public String getBase64() {
-        return base64;
-    }
+
 }
