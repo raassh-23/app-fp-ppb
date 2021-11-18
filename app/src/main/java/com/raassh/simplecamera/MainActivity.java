@@ -29,11 +29,11 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnCam;
+    ImageButton btnCam;
     Button btnList;
-    ImageButton btnSend;
+    Button btnSend;
     ImageView imgView;
-    EditText etServer;
+//    EditText etServer;
 
     private static final int kodeKamera = 222;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnList = findViewById(R.id.btnList);
         btnSend = findViewById(R.id.btnSend);
         imgView = findViewById(R.id.imageView);
-        etServer = findViewById(R.id.etServer);
+//        etServer = findViewById(R.id.etServer);
 
         btnCam.setOnClickListener(new View.OnClickListener() {
             @Override
