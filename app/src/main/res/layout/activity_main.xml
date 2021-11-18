@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:tint="@color/white"
-        tools:ignore="SpeakableTextPresentCheck"></ImageButton>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView"
@@ -49,7 +49,7 @@
         android:textColor="#495057"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCam"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/btnCam"/>
 
     <Button
         android:id="@+id/btnSend"

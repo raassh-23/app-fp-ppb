@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnList;
     Button btnSend;
     ImageView imgView;
-//    EditText etServer;
 
     private static final int kodeKamera = 222;
 
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         btnList = findViewById(R.id.btnList);
         btnSend = findViewById(R.id.btnSend);
         imgView = findViewById(R.id.imageView);
-//        etServer = findViewById(R.id.etServer);
 
         btnCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +57,7 @@ public class MainActivity extends AppCompatActivity {
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = getString(R.string.apiUrl, "image/list");
-
                 Intent it = new Intent(MainActivity.this, ListFoto.class);
-                it.putExtra("url", url);
                 startActivity(it);
             }
         });

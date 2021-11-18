@@ -41,7 +41,7 @@ public class ListFoto extends AppCompatActivity {
 
         ArrayList<Foto> listFoto = new ArrayList<>();
 
-        String url = getIntent().getExtras().getString("url");
+        String url = getString(R.string.apiUrl, "image/list");
 
         Toast.makeText(this, "Mengambil list foto", Toast.LENGTH_SHORT).show();
 
