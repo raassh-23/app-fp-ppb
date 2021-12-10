@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".translation">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+            <TextView
+                android:id="@+id/tvTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tulisan di gambar" />
+
+            <TextView
+                android:id="@+id/tvText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="isi tulisan" />
+
+            <TextView
+                android:id="@+id/tvLangTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahasa Terdeteksi" />
+
+            <TextView
+                android:id="@+id/tvLang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvLangSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih bahasa" />
+
+            <Spinner
+                android:id="@+id/spLangSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:spinnerMode="dropdown" />
+
+            <Button
+                android:id="@+id/btnTranslate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terjemahkan" />
+
+            <TextView
+                android:id="@+id/tvTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hasil terjemahan" />
+
+            <Button
+                android:id="@+id/btnBackLoad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih gambar lain" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -5,4 +5,6 @@
     <string name="btnList">Gallery</string>
     <string name="btnBack">Back</string>
     <string name="galleryTitle">Server Gallery</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
