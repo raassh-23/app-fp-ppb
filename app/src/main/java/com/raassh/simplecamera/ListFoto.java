@@ -58,9 +58,20 @@ public class ListFoto extends AppCompatActivity {
                                         JSONObject foto = data.getJSONObject(i);
 
                                         String name = foto.getString("name");
-                                        String link = foto.getString("link");
+                                        String link = foto.getString("url");
+                                        String text = null;
 
-                                        listFoto.add(new Foto(name, link));
+                                        if (!foto.isNull("text")) {
+                                            text = foto.getString("text");
+                                        }
+
+                                        String language = null;
+
+                                        if (!foto.isNull("language")) {
+                                            language = foto.getString("language");
+                                        }
+
+                                        listFoto.add(new Foto(name, link, text, language));
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();

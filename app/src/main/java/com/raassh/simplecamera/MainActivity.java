@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,14 +28,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     ImageButton btnCam;
     Button btnList;
     Button btnSend;
+    Button btnLoad;
     ImageView imgView;
 
     private static final int kodeKamera = 222;
+    private static final int pilihGambar = 223;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnCam = findViewById(R.id.btnCam);
         btnList = findViewById(R.id.btnList);
         btnSend = findViewById(R.id.btnSend);
+        btnLoad = findViewById(R.id.btnLoad);
         imgView = findViewById(R.id.imageView);
 
         btnCam.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 String url = getString(R.string.apiUrl, "image/upload");
+
                 JsonObjectRequest uploadRequest = new JsonObjectRequest
                         (Request.Method.POST, url, requestJson, new Response.Listener<JSONObject>() {
                             @Override
@@ -101,6 +108,16 @@ public class MainActivity extends AppCompatActivity {
                 RequestQueueSingleton.getInstance(getBaseContext()).addToRequestQueue(uploadRequest);
             }
         });
+
+        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), pilihGambar);
+            }
+        });
     }
 
     @Override
@@ -110,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
             switch (requestCode) {
                 case kodeKamera:
                     prosesKamera(data);
+                    break;
+                case pilihGambar:
+                    prosesLoadGambar(data);
                     break;
             }
         }
@@ -122,5 +142,18 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setEnabled(true);
 
         Toast.makeText(this, "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
+    }
+
+    private void prosesLoadGambar(Intent data) {
+        try {
+            InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
+            Bitmap bm = BitmapFactory.decodeStream(inputStream);
+            imgView.setImageBitmap(bm);
+
+            btnSend.setEnabled(true);
+            Toast.makeText(this, "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this, "Gambar gagal diload", Toast.LENGTH_SHORT).show();
+        }
     }
 }
