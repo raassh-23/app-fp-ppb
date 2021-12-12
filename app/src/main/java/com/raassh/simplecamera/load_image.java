@@ -18,12 +18,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,9 +53,12 @@ public class load_image extends Fragment {
     Button btnSend;
     Button btnLoad;
     Bitmap loaded = null;
-
+    Button detectTextBtn;
+    TextView detectedTextView;
+    private Bitmap imageBitmap;
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
+
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -219,6 +230,11 @@ public class load_image extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), pilihGambar);
             }
         });
+        detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
+        detectedTextView = getView().findViewById(R.id.detectedView);
+
+        detectTextBtn.setOnClickListener(v -> detectText());
+
     }
 
     @Override
@@ -252,6 +268,58 @@ public class load_image extends Fragment {
             btnSend.setEnabled(true);
         } catch (FileNotFoundException e) {
             Toast.makeText(getContext(), "Gambar gagal diload", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void detectText() {
+        // this is a method to detect a text from image.
+        // below line is to create variable for firebase
+        // vision image and we are getting image bitmap.
+
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(loaded);
+
+        // below line is to create a variable for detector and we
+        // are getting vision text detector from our firebase vision.
+        FirebaseVisionTextDetector detector = FirebaseVision.getInstance().getVisionTextDetector();
+
+        // adding on success listener method to detect the text from image.
+        detector.detectInImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                // calling a method to process
+                // our text after extracting.
+                processTxt(firebaseVisionText);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // handling an error listener.
+                Toast.makeText(getContext(),"Fail to detect the text from image..",  Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void processTxt(FirebaseVisionText text) {
+        // below line is to create a list of vision blocks which
+        // we will get from our firebase vision text.
+        List<FirebaseVisionText.Block> blocks = text.getBlocks();
+
+        // checking if the size of the
+        // block is not equal to zero.
+        if (blocks.size() == 0) {
+            // if the size of blocks is zero then we are displaying
+            // a toast message as no text detected.
+            Toast.makeText(getContext(), "No Text ", Toast.LENGTH_LONG).show();
+            return;
+        }
+        // extracting data from each block using a for loop.
+        for (FirebaseVisionText.Block block : text.getBlocks()) {
+            // below line is to get text
+            // from each block.
+            String txt = block.getText();
+
+            // below line is to set our
+            // string to our text view.
+            detectedTextView.setText(txt);
         }
     }
 }

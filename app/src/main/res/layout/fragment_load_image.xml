@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".load_image">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,12 +19,13 @@
             android:drawableTint="@color/white"
             android:padding="18dp"
             android:src="@drawable/ic_baseline_add_a_photo_24"
+            app:layout_constraintTop_toBottomOf="@id/detectedView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,UnknownId"
+             />
 
         <TextView
             android:id="@+id/textView"
@@ -34,18 +34,18 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/rubik_medium"
             android:text="Take a Pic"
-            android:textSize="16dp"
             android:textColor="#495057"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCam"/>
+            app:layout_constraintTop_toBottomOf="@+id/btnCam" />
 
         <Button
             android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/teal_700"
@@ -77,16 +77,16 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnList" />
+            app:layout_constraintTop_toBottomOf="@+id/btnList"
+            app:layout_constraintVertical_bias="0.022" />
 
         <Button
             android:id="@+id/btnList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:drawableRight="@drawable/ic_baseline_photo_library_24"
             android:drawableTint="@color/white"
@@ -100,6 +100,40 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/detect_text_image_btn"
+            android:layout_width="361dp"
+            android:layout_height="47dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="28dp"
+            android:background="@color/teal_700"
+            android:text="Detect Text"
+            android:textAllCaps="false"
+            android:textSize="17dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/detectedView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:maxLines="10"
+            android:paddingHorizontal="24dp"
+            android:text="Ini text dari gambar"
+            android:textSize="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detect_text_image_btn"
+            tools:ignore="MissingConstraints"
+            android:layout_marginBottom="16dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
