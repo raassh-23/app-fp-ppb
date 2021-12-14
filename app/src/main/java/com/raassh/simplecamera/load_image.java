@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,13 +49,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class load_image extends Fragment {
-    ImageButton btnCam;
-    Button btnList;
-    Button btnSend;
-    Button btnLoad;
+    ImageButton btnCam,btnList,btnSend,btnLoad;
     Bitmap loaded = null;
     Button detectTextBtn;
-    TextView detectedTextView;
+    EditText detectedTextView;
+    TextView tvText;
     private Bitmap imageBitmap;
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
@@ -320,6 +319,9 @@ public class load_image extends Fragment {
             // below line is to set our
             // string to our text view.
             detectedTextView.setText(txt);
+            tvText = getActivity().findViewById(R.id.tvText);
+            tvText.setText(txt);
         }
+
     }
 }

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +39,9 @@ import java.util.Locale;
  */
 public class translation extends Fragment {
     TextView tvText, tvLang, tvTranslation, tvLangSelect;
-    Button btnTranslate, btnBackLoad;
+    ImageButton btnTranslate, btnBackLoad;
     Spinner spLangSelect;
+    Button btnDetect;
 
     ArrayList<String> availableLang;
     String selectedLangCode = "id";
@@ -50,8 +53,9 @@ public class translation extends Fragment {
     private static final String ARG_PARAM3 = "available_lang";
 
     // TODO: Rename and change types of parameters
+    TextView tv1;
     private String text;
-    private String detectedLang;
+    private String detectedLang = "en";
 
     public translation() {
         // Required empty public constructor
@@ -81,7 +85,9 @@ public class translation extends Fragment {
         availableLang = new ArrayList<String>();
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            text = getArguments().getString(ARG_PARAM1);
+             tv1 = (EditText) getView().findViewById(R.id.detectedView);
+            text = tv1.getText().toString();
+//            text = getArguments().getString(ARG_PARAM1);
             detectedLang = getArguments().getString(ARG_PARAM2);
             availableLang = getArguments().getStringArrayList(ARG_PARAM3);
         }
@@ -93,12 +99,25 @@ public class translation extends Fragment {
 
         tvText = getView().findViewById(R.id.tvText);
         tvLang = getView().findViewById(R.id.tvLang);
-        tvTranslation = getView().findViewById(R.id.tvTranslation);
+        tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
         tvLangSelect = getView().findViewById(R.id.tvLangSelect);
+
+
+        btnDetect = (Button) getActivity().findViewById(R.id.detect_text_image_btn);
+        tv1 = (TextView) getActivity().findViewById(R.id.detectedView);
+        text = "test";
+//        btnDetect.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tv1 = (TextView) getActivity().findViewById(R.id.detectedView);
+//                text = tv1.getText().toString();
+//                tvText.setText(text);
+//            }
+//        });
 
         Locale detectedLangLoc = new Locale(detectedLang);
         Locale id = new Locale("id");
-        tvText.setText(text);
+//        tvText.setText(text);
         tvLang.setText(detectedLangLoc.getDisplayLanguage(id));
 
         btnTranslate = getView().findViewById(R.id.btnTranslate);
@@ -106,7 +125,8 @@ public class translation extends Fragment {
 
         spLangSelect = getView().findViewById(R.id.spLangSelect);
 
-        if(text.equals("Tidak ada teks terdeteksi")) {
+
+        if(text.equals("Tidak ada teks terdeteksi") || text==null) {
             tvTranslation.setVisibility(View.GONE);
             tvLangSelect.setVisibility(View.GONE);
             btnTranslate.setVisibility(View.GONE);
@@ -137,6 +157,8 @@ public class translation extends Fragment {
         btnTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv1 = (EditText) getActivity().findViewById(R.id.detectedView);
+                text = tv1.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
 
                 JSONObject requestJson = new JSONObject();

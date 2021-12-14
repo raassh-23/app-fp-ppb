@@ -6,16 +6,44 @@
     tools:context=".translation">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
 
         <LinearLayout
+            android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:scrollbars="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/border"
+                android:layout_marginBottom="12dp"
+                >
+
+                <EditText
+                    android:id="@+id/InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="8dp"
+                    android:layout_weight="0.2"
+                    android:hint="Hi, Apa kabar?"
+                    />
+                <ImageButton
+                    android:id="@+id/btnTranslate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_search_24"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+
             <TextView
                 android:id="@+id/tvTextTitle"
                 android:layout_width="match_parent"
@@ -52,24 +80,13 @@
                 android:minHeight="48dp"
                 android:spinnerMode="dropdown" />
 
-            <Button
-                android:id="@+id/btnTranslate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Terjemahkan" />
 
-            <TextView
-                android:id="@+id/tvTranslation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="hasil terjemahan" />
-
-            <Button
+            <ImageButton
                 android:id="@+id/btnBackLoad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pilih gambar lain" />
+                android:src="@drawable/back"
+                />
         </LinearLayout>
-    </ScrollView>
 
 </FrameLayout>
