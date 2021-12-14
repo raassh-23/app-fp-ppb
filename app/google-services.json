@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "53179089862",
-    "project_id": "translate-app-3fd0c",
-    "storage_bucket": "translate-app-3fd0c.appspot.com"
+    "project_number": "973131124623",
+    "project_id": "simplecamerapp",
+    "storage_bucket": "simplecamerapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:53179089862:android:aebd4b21dd7c4631b768c7",
+        "mobilesdk_app_id": "1:973131124623:android:a770822370500a1752c5fa",
         "android_client_info": {
           "package_name": "com.raassh.simplecamera"
         }
       },
       "oauth_client": [
         {
-          "client_id": "53179089862-ih2s5psa938tfah1tt17kilqc5o58o37.apps.googleusercontent.com",
+          "client_id": "973131124623-prglul6pv9fd103gsb0hqede64aesmfp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZP124QJnd3EjNVfqQLqu9cXahaoGPSPc"
+          "current_key": "AIzaSyDmxFuhFJ4DED6DRFMx7SQuk-RBvbiwSb4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "53179089862-ih2s5psa938tfah1tt17kilqc5o58o37.apps.googleusercontent.com",
+              "client_id": "973131124623-prglul6pv9fd103gsb0hqede64aesmfp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
