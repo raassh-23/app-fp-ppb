@@ -220,7 +220,7 @@
                     tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
-                    android:id="@+id/btnTranslate"
+                    android:id="@+id/btnTranslateFromImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

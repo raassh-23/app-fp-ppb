@@ -39,7 +39,7 @@ import java.util.Locale;
  */
 public class translation extends Fragment {
     TextView tvText, tvLang, tvTranslation, tvLangSelect;
-    ImageButton btnTranslate, btnBackLoad;
+    ImageButton btnTranslate, btnBackLoad, btnTranslateFromImg;
     Spinner spLangSelect;
     Button btnDetect;
 
@@ -56,6 +56,9 @@ public class translation extends Fragment {
     TextView tv1;
     private String text;
     private String detectedLang = "en";
+
+    Fragment frag_load_image;
+    View view_load_image;
 
     public translation() {
         // Required empty public constructor
@@ -122,7 +125,6 @@ public class translation extends Fragment {
 
         btnTranslate = getView().findViewById(R.id.btnTranslate);
         btnBackLoad = getView().findViewById(R.id.btnBackLoad);
-
         spLangSelect = getView().findViewById(R.id.spLangSelect);
 
 
@@ -199,6 +201,7 @@ public class translation extends Fragment {
                 RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(translateRequest);
             }
         });
+
 
         btnBackLoad.setOnClickListener(new View.OnClickListener() {
             @Override

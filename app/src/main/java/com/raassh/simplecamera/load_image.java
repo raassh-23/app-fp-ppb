@@ -49,11 +49,14 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class load_image extends Fragment {
-    ImageButton btnCam,btnList,btnSend,btnLoad;
+    String selectedLangCode = "id";
+
+    ImageButton btnCam,btnList,btnSend,btnLoad, btnTranslateFromImg;
     Bitmap loaded = null;
     Button detectTextBtn;
     EditText detectedTextView;
-    TextView tvText;
+    String text;
+    TextView tvText, tvTranslation;
     private Bitmap imageBitmap;
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
@@ -231,8 +234,55 @@ public class load_image extends Fragment {
         });
         detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
         detectedTextView = getView().findViewById(R.id.detectedView);
+        btnTranslateFromImg =getView().findViewById(R.id.btnTranslateFromImg);
+        tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
 
         detectTextBtn.setOnClickListener(v -> detectText());
+        btnTranslateFromImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                text = detectedTextView.getText().toString();
+                String url = getString(R.string.apiUrl, "translation");
+
+                JSONObject requestJson = new JSONObject();
+                try {
+                    requestJson.put("text", text);
+                    requestJson.put("to", selectedLangCode);
+                } catch (JSONException e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Translation", "JSONException: " + e.getMessage());
+                }
+
+                JsonObjectRequest translateRequest = new JsonObjectRequest
+                        (Request.Method.POST, url, requestJson, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("MAIN", "Response: " + response.toString());
+
+                                try {
+                                    JSONObject data = response.getJSONObject("data");
+                                    String translated = data.getString("translated_text");
+                                    tvTranslation.setText(translated);
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Log.e("Translation", "JSONException: " + e.getMessage());
+                                }
+
+                                Toast.makeText(getContext(), "Teks berhasil diterjemahkan", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                                Log.e("MAIN", "VolleyError: " + error.toString());
+                            }
+                        });
+
+                Toast.makeText(getContext(), "Menerjemahkan", Toast.LENGTH_SHORT).show();
+                RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(translateRequest);
+            }
+        });
+
 
     }
 
