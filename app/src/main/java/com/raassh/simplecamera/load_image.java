@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class load_image extends Fragment {
     EditText detectedTextView;
     String text;
     TextView tvText, tvTranslation;
+    ImageView imageViewFix;
     private Bitmap imageBitmap;
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
@@ -234,7 +236,7 @@ public class load_image extends Fragment {
         });
         detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
         detectedTextView = getView().findViewById(R.id.detectedView);
-        btnTranslateFromImg =getView().findViewById(R.id.btnTranslateFromImg);
+        btnTranslateFromImg = getView().findViewById(R.id.btnTranslateFromImg);
         tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
 
         detectTextBtn.setOnClickListener(v -> detectText());
@@ -303,9 +305,9 @@ public class load_image extends Fragment {
 
     private void prosesKamera(Intent datanya) {
         loaded = (Bitmap) datanya.getExtras().get("data");
-        ((MainActivity)getActivity()).loadImage(loaded);
+        imageViewFix = getView().findViewById(R.id.imageViewFix);
+        imageViewFix.setImageBitmap(loaded);
         btnSend.setEnabled(true);
-
         Toast.makeText(getContext(), "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
     }
 
@@ -313,7 +315,9 @@ public class load_image extends Fragment {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
             loaded = BitmapFactory.decodeStream(inputStream);
-            ((MainActivity)getActivity()).loadImage(loaded);
+            imageViewFix = getView().findViewById(R.id.imageViewFix);
+            imageViewFix.setImageBitmap(loaded);
+//            ((MainActivity)getActivity()).loadImage(loaded);
             btnSend.setEnabled(true);
         } catch (FileNotFoundException e) {
             Toast.makeText(getContext(), "Gambar gagal diload", Toast.LENGTH_SHORT).show();

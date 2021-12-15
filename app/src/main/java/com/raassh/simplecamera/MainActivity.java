@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView imgView;
     Fragment fragment;
 
 
@@ -35,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imgView = findViewById(R.id.imageView);
-
     }
 
-    public void loadImage(Bitmap bm) {
-        imgView.setImageBitmap(bm);
-        Toast.makeText(this, "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
-    }
+//    public void loadImage(Bitmap bm) {
+//
+//        imgView.setImageBitmap(bm);
+//        Toast.makeText(this, "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
+//    }
 
     public void setTranslationFragment(String text, String lang, ArrayList<String> availableLang) {
         getSupportFragmentManager().beginTransaction()
