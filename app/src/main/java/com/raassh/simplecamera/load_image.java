@@ -16,10 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +53,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class load_image extends Fragment {
-    String selectedLangCode = "id";
-
+    String selectedLangCode;
+    Spinner spLangSelectImg;
     ImageButton btnCam,btnList,btnSend,btnLoad, btnTranslateFromImg;
     Bitmap loaded = null;
     Button detectTextBtn;
@@ -240,6 +243,43 @@ public class load_image extends Fragment {
         tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
 
         detectTextBtn.setOnClickListener(v -> detectText());
+        translation tr = new translation();
+
+        spLangSelectImg = getView().findViewById(R.id.spLangSelectImg);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.languages, R.layout.custom_spinner);
+        spLangSelectImg.setAdapter(adapter);
+
+        spLangSelectImg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String strLangSelected = adapterView.getItemAtPosition(i).toString();
+                if(strLangSelected.equals("Indonesia")) {
+                    selectedLangCode="id";
+                }
+                if(strLangSelected.equals("Jerman")){
+                    selectedLangCode="de";
+                }
+                if(strLangSelected.equals("Inggris")){
+                    selectedLangCode="en";
+                }
+                if(strLangSelected.equals("Prancis")){
+                    selectedLangCode="fr";
+                }
+                if(strLangSelected.equals("Spanyol")){
+                    selectedLangCode="sp";
+                }
+                if(strLangSelected.equals("Italia")){
+                    selectedLangCode="it";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         btnTranslateFromImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -373,8 +413,8 @@ public class load_image extends Fragment {
             // below line is to set our
             // string to our text view.
             detectedTextView.setText(txt);
-            tvText = getActivity().findViewById(R.id.tvText);
-            tvText.setText(txt);
+//            tvText = getActivity().findViewById(R.id.tvText);
+//            tvText.setText(txt);
         }
 
     }
