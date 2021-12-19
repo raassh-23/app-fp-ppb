@@ -24,43 +24,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link translation#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class translation extends Fragment {
-    TextView tvText, tvLang, tvTranslation, tvLangSelect;
-    ImageButton btnTranslate, btnBackLoad, btnTranslateFromImg;
+    ImageButton btnTranslate;
     Spinner spLangSelect;
     Button btnDetect;
     EditText inputText;
+    TextView tvTranslation;
 
-    String[] items={"jw","en-us","ita","en"};
-    ArrayList<String> availableLang;
     String selectedLangCode;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "text";
-    private static final String ARG_PARAM2 = "lang";
-    private static final String ARG_PARAM3 = "available_lang";
-
-    // TODO: Rename and change types of parameters
-    TextView tv1;
-    private String text;
-    private String detectedLang = "en";
-
-    Fragment frag_load_image;
-    View view_load_image;
-
 
     public Spinner get_spinner(){
         return getView().findViewById(R.id.spLangSelect);
@@ -69,94 +43,37 @@ public class translation extends Fragment {
     public translation() {
         // Required empty public constructor
     }
+
     public String getLang(){
         return selectedLangCode;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment translation.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static translation newInstance(String param1, String param2, ArrayList<String> param3) {
+    public static translation newInstance() {
         translation fragment = new translation();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putStringArrayList(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        availableLang = new ArrayList<String>();
-
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            text = inputText.getText().toString();
-//            text = getArguments().getString(ARG_PARAM1);
-            detectedLang = getArguments().getString(ARG_PARAM2);
-            availableLang = getArguments().getStringArrayList(ARG_PARAM3);
-        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        tvText = getView().findViewById(R.id.tvText);
-//        tvLang = getView().findViewById(R.id.tvLang);
-//        tvLangSelect = getView().findViewById(R.id.tvLangSelect);
-        tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
         inputText = (EditText) getActivity().findViewById(R.id.InputText);
-
-
         btnDetect = (Button) getActivity().findViewById(R.id.detect_text_image_btn);
-        tv1 = (TextView) getActivity().findViewById(R.id.detectedView);
-        text = "test";
-//        btnDetect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                tv1 = (TextView) getActivity().findViewById(R.id.detectedView);
-//                text = tv1.getText().toString();
-//                tvText.setText(text);
-//            }
-//        });
-
-        Locale detectedLangLoc = new Locale(detectedLang);
-        Locale id = new Locale("id");
-//        tvText.setText(text);
-//        tvLang.setText(detectedLangLoc.getDisplayLanguage(id));
-
+        tvTranslation = getActivity().findViewById(R.id.tvTranslation);
         btnTranslate = getView().findViewById(R.id.btnTranslate);
-//        btnBackLoad = getView().findViewById(R.id.btnBackLoad);
         spLangSelect = getView().findViewById(R.id.spLangSelect);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.languages, R.layout.custom_spinner);
         spLangSelect.setAdapter(adapter);
 
-
-        if(text.equals("Tidak ada teks terdeteksi") || text==null) {
-            tvTranslation.setVisibility(View.GONE);
-            tvLangSelect.setVisibility(View.GONE);
-            btnTranslate.setVisibility(View.GONE);
-            spLangSelect.setVisibility(View.GONE);
-        }
-
-//        ArrayList<String> languagesName = new ArrayList<>();
-//
-//        for (int i = 0; i < availableLang.size(); i++) {
-//            Locale langLocale = new Locale(availableLang.get(i));
-//            languagesName.add(langLocale.getDisplayLanguage(id));
-//        }
-
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, languagesName);
-//        spLangSelect.setAdapter(arrayAdapter);
         spLangSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -192,7 +109,7 @@ public class translation extends Fragment {
             @Override
             public void onClick(View view) {
 
-                text = inputText.getText().toString();
+                String text = inputText.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
 
                 JSONObject requestJson = new JSONObject();
@@ -234,13 +151,6 @@ public class translation extends Fragment {
             }
         });
 
-
-//        btnBackLoad.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getActivity().onBackPressed();
-//            }
-//        });
     }
 
     @Override

@@ -30,28 +30,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link load_image#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class load_image extends Fragment {
     String selectedLangCode;
     Spinner spLangSelectImg;
@@ -66,37 +52,9 @@ public class load_image extends Fragment {
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
 
-
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     public load_image() {
         // Required empty public constructor
     }
-
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment load_image.
-//     */
-    // TODO: Rename and change types and number of parameters
-//    public static load_image newInstance(String param1, String param2) {
-//        load_image fragment = new load_image();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     public static load_image newInstance() {
         load_image fragment = new load_image();
@@ -108,10 +66,6 @@ public class load_image extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
@@ -129,6 +83,10 @@ public class load_image extends Fragment {
         btnList = getView().findViewById(R.id.btnList);
         btnSend = getView().findViewById(R.id.btnSend);
         btnLoad = getView().findViewById(R.id.btnLoad);
+        detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
+        detectedTextView = getView().findViewById(R.id.detectedView);
+        btnTranslateFromImg = getView().findViewById(R.id.btnTranslateFromImg);
+        tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
 
         btnCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,8 +104,8 @@ public class load_image extends Fragment {
             }
         });
 
-        btnSend.setEnabled(false);
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        detectTextBtn.setEnabled(false);
+        detectTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -175,45 +133,16 @@ public class load_image extends Fragment {
                                     JSONObject data = response.getJSONObject("data");
 
                                     if (data.isNull("text")) {
-                                        ((MainActivity)getActivity()).setTranslationFragment(
-                                                "Tidak ada teks terdeteksi",
-                                                "Tidak ada bahasa terdeteksi",
-                                                new ArrayList<String>()
-                                        );
+                                        Toast.makeText(getContext(), "Tidak ada teks terdeteksi", Toast.LENGTH_LONG).show();
                                     } else {
+                                        Toast.makeText(getContext(), "Teks berhasil dideteksi", Toast.LENGTH_LONG).show();
                                         String text = data.getString("text");
-                                        String lang = data.getString("language");
-
-                                        JSONArray languages = data.getJSONArray("available-translation");
-
-                                        ArrayList<String> availableLanguages = new ArrayList<>();
-
-                                        for (int i = 0; i < languages.length(); i++) {
-                                            JSONObject availLang = languages.getJSONObject(i);
-                                            availableLanguages.add(availLang.getString("code"));
-                                        }
-
-                                        int itemPos = availableLanguages.indexOf("id");
-                                        if(itemPos > 0) {
-                                            availableLanguages.remove(itemPos);
-                                            availableLanguages.add(0, "id" );
-                                        }
-
-                                        ((MainActivity)getActivity()).setTranslationFragment(
-                                                text,
-                                                lang,
-                                                availableLanguages
-                                        );
+                                        detectedTextView.setText(text.trim());
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     Log.e("Load image", "JSONException: " + e.getMessage()); e.printStackTrace();
                                 }
-
-
-//
-
-                                Toast.makeText(getContext(), "Gambar berhasil tersimpan di server", Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -237,13 +166,6 @@ public class load_image extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), pilihGambar);
             }
         });
-        detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
-        detectedTextView = getView().findViewById(R.id.detectedView);
-        btnTranslateFromImg = getView().findViewById(R.id.btnTranslateFromImg);
-        tvTranslation = (TextView) getActivity().findViewById(R.id.tvTranslation);
-
-        detectTextBtn.setOnClickListener(v -> detectText());
-        translation tr = new translation();
 
         spLangSelectImg = getView().findViewById(R.id.spLangSelectImg);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -280,6 +202,7 @@ public class load_image extends Fragment {
 
             }
         });
+
         btnTranslateFromImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -337,85 +260,31 @@ public class load_image extends Fragment {
                     prosesKamera(data);
                     break;
                 case pilihGambar:
-                    prosesLoadGambar(data);
+                    prosesLoadDariFile(data);
                     break;
             }
         }
     }
 
     private void prosesKamera(Intent datanya) {
-        loaded = (Bitmap) datanya.getExtras().get("data");
-        imageViewFix = getView().findViewById(R.id.imageViewFix);
-        imageViewFix.setImageBitmap(loaded);
-        btnSend.setEnabled(true);
-        Toast.makeText(getContext(), "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
+        loadImage((Bitmap)datanya.getExtras().get("data"));
     }
 
-    private void prosesLoadGambar(Intent data) {
+    private void prosesLoadDariFile(Intent data) {
         try {
             InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
-            loaded = BitmapFactory.decodeStream(inputStream);
-            imageViewFix = getView().findViewById(R.id.imageViewFix);
-            imageViewFix.setImageBitmap(loaded);
-//            ((MainActivity)getActivity()).loadImage(loaded);
-            btnSend.setEnabled(true);
+            loadImage(BitmapFactory.decodeStream(inputStream));
         } catch (FileNotFoundException e) {
             Toast.makeText(getContext(), "Gambar gagal diload", Toast.LENGTH_SHORT).show();
         }
     }
-    private void detectText() {
-        // this is a method to detect a text from image.
-        // below line is to create variable for firebase
-        // vision image and we are getting image bitmap.
 
-        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(loaded);
-
-        // below line is to create a variable for detector and we
-        // are getting vision text detector from our firebase vision.
-        FirebaseVisionTextDetector detector = FirebaseVision.getInstance().getVisionTextDetector();
-
-        // adding on success listener method to detect the text from image.
-        detector.detectInImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-            @Override
-            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                // calling a method to process
-                // our text after extracting.
-                processTxt(firebaseVisionText);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // handling an error listener.
-                Toast.makeText(getContext(),"Fail to detect the text from image..",  Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void processTxt(FirebaseVisionText text) {
-        // below line is to create a list of vision blocks which
-        // we will get from our firebase vision text.
-        List<FirebaseVisionText.Block> blocks = text.getBlocks();
-
-        // checking if the size of the
-        // block is not equal to zero.
-        if (blocks.size() == 0) {
-            // if the size of blocks is zero then we are displaying
-            // a toast message as no text detected.
-            Toast.makeText(getContext(), "No Text ", Toast.LENGTH_LONG).show();
-            return;
-        }
-        // extracting data from each block using a for loop.
-        for (FirebaseVisionText.Block block : text.getBlocks()) {
-            // below line is to get text
-            // from each block.
-            String txt = block.getText();
-
-            // below line is to set our
-            // string to our text view.
-            detectedTextView.setText(txt);
-//            tvText = getActivity().findViewById(R.id.tvText);
-//            tvText.setText(txt);
-        }
-
+    private void loadImage(Bitmap bm) {
+        loaded = bm;
+        imageViewFix = getView().findViewById(R.id.imageViewFix);
+        imageViewFix.setImageBitmap(loaded);
+        detectTextBtn.setEnabled(true);
+        detectedTextView.setText("");
+        Toast.makeText(getContext(), "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
     }
 }

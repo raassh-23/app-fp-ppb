@@ -1,7 +1,5 @@
 package com.raassh.simplecamera;
 
-import android.util.Log;
-
 public class Foto {
     private String name;
     private String link;
