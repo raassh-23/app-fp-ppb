@@ -1,12 +1,14 @@
 package com.raassh.simplecamera;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ListFoto extends AppCompatActivity {
-    ListView lvFoto;
+    GridView gvFoto;
     Button btnBack;
 
     @Override
@@ -29,7 +31,7 @@ public class ListFoto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_foto);
 
-        lvFoto = findViewById(R.id.lvFoto);
+        gvFoto = findViewById(R.id.gvFoto);
         btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -41,9 +43,10 @@ public class ListFoto extends AppCompatActivity {
 
         ArrayList<Foto> listFoto = new ArrayList<>();
 
-        String url = getString(R.string.apiUrl, "image/list");
+        LoadingDialog loading = new LoadingDialog(this, "Mengambil foto...");
+        loading.startLoadingDialog();
 
-        Toast.makeText(this, "Mengambil list foto", Toast.LENGTH_SHORT).show();
+        String url = getString(R.string.apiUrl, "image/list");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                         (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -79,13 +82,16 @@ public class ListFoto extends AppCompatActivity {
                                 }
 
                                 FotoAdapter adapter = new FotoAdapter(getBaseContext(), 0, listFoto);
-                                lvFoto.setAdapter(adapter);
+                                gvFoto.setAdapter(adapter);
 
-                                Toast.makeText(getBaseContext(), "List foto berhasil diambil", Toast.LENGTH_SHORT).show();
+                                loading.dismisDialog();
+                                Toast.makeText(getBaseContext(), "Daftar foto berhasil diambil", Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                loading.dismisDialog();
+
                                 if(error.networkResponse != null && error.networkResponse.statusCode == 404) {
                                     Toast.makeText(getBaseContext(), "Tidak ditemukan foto", Toast.LENGTH_LONG).show();
                                 } else {
@@ -97,5 +103,17 @@ public class ListFoto extends AppCompatActivity {
                         });
 
         RequestQueueSingleton.getInstance(getBaseContext()).addToRequestQueue(jsonObjectRequest);
+
+        gvFoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Foto selected = (Foto) gvFoto.getItemAtPosition(i);
+
+                FragmentManager fm = getSupportFragmentManager();
+                SelectedPhoto selectedPhoto = SelectedPhoto.newInstance(selected.getName(),
+                        selected.getLink(), selected.getText(), selected.getLanguage());
+                selectedPhoto.show(fm, "Selected Photo");
+            }
+        });
     }
 }

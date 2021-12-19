@@ -21,6 +21,10 @@ public class Foto {
         return link;
     }
 
+    public String getText() { return text; }
+
+    public String getLanguage() { return language; }
+
     @Override
     public String toString() {
         return "Foto{" +
