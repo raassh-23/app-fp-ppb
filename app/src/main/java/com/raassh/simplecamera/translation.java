@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,10 +109,16 @@ public class translation extends Fragment {
         btnTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String text = inputText.getText().toString().trim();
+
+                if(TextUtils.isEmpty(text)) {
+                    Toast.makeText(getContext(), "Tidak ada teks yang akan diterjemahkan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Menerjemahkan...");
                 loadingDialog.startLoadingDialog();
 
-                String text = inputText.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
 
                 JSONObject requestJson = new JSONObject();

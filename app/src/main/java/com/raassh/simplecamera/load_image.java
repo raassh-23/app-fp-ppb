@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,9 +47,8 @@ public class load_image extends Fragment {
     Button detectTextBtn;
     EditText detectedTextView;
     String text;
-    TextView tvText, tvTranslation;
+    TextView tvTranslation;
     ImageView imageViewFix;
-    private Bitmap imageBitmap;
     private static final int kodeKamera = 222;
     private static final int pilihGambar = 223;
 
@@ -104,10 +104,14 @@ public class load_image extends Fragment {
             }
         });
 
-        detectTextBtn.setEnabled(false);
         detectTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(loaded == null) {
+                    Toast.makeText(getContext(), "Tidak ada gambar yang dipilih", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Mendeteksi Teks...");
                 loadingDialog.startLoadingDialog();
 
@@ -212,10 +216,16 @@ public class load_image extends Fragment {
         btnTranslateFromImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                text = detectedTextView.getText().toString();
+
+                if(TextUtils.isEmpty(text)) {
+                    Toast.makeText(getContext(), "Tidak ada teks yang akan diterjemahkan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Menerjemahkan...");
                 loadingDialog.startLoadingDialog();
 
-                text = detectedTextView.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
 
                 JSONObject requestJson = new JSONObject();
@@ -293,7 +303,6 @@ public class load_image extends Fragment {
         loaded = bm;
         imageViewFix = getView().findViewById(R.id.imageViewFix);
         imageViewFix.setImageBitmap(loaded);
-        detectTextBtn.setEnabled(true);
         detectedTextView.setText("");
         Toast.makeText(getContext(), "Gambar sudah terload ke Imageview", Toast.LENGTH_SHORT).show();
     }
