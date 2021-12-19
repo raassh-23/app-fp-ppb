@@ -108,6 +108,9 @@ public class load_image extends Fragment {
         detectTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Mendeteksi Teks...");
+                loadingDialog.startLoadingDialog();
+
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 loaded.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
@@ -143,16 +146,19 @@ public class load_image extends Fragment {
                                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     Log.e("Load image", "JSONException: " + e.getMessage()); e.printStackTrace();
                                 }
+
+                                loadingDialog.dismisDialog();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("MAIN", "VolleyError: " + error.toString());
+
+                                loadingDialog.dismisDialog();
                             }
                         });
 
-                Toast.makeText(getContext(), "Mengirim gambar ke server", Toast.LENGTH_SHORT).show();
                 RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(uploadRequest);
             }
         });
@@ -206,6 +212,9 @@ public class load_image extends Fragment {
         btnTranslateFromImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Menerjemahkan...");
+                loadingDialog.startLoadingDialog();
+
                 text = detectedTextView.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
 
@@ -234,16 +243,17 @@ public class load_image extends Fragment {
                                 }
 
                                 Toast.makeText(getContext(), "Teks berhasil diterjemahkan", Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismisDialog();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("MAIN", "VolleyError: " + error.toString());
+                                loadingDialog.dismisDialog();
                             }
                         });
 
-                Toast.makeText(getContext(), "Menerjemahkan", Toast.LENGTH_SHORT).show();
                 RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(translateRequest);
             }
         });

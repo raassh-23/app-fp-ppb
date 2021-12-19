@@ -108,6 +108,8 @@ public class translation extends Fragment {
         btnTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LoadingDialog loadingDialog = new LoadingDialog(getActivity(), "Menerjemahkan...");
+                loadingDialog.startLoadingDialog();
 
                 String text = inputText.getText().toString();
                 String url = getString(R.string.apiUrl, "translation");
@@ -136,6 +138,7 @@ public class translation extends Fragment {
                                     Log.e("Translation", "JSONException: " + e.getMessage());
                                 }
 
+                                loadingDialog.dismisDialog();
                                 Toast.makeText(getContext(), "Teks berhasil diterjemahkan", Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
@@ -143,10 +146,10 @@ public class translation extends Fragment {
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("MAIN", "VolleyError: " + error.toString());
+                                loadingDialog.dismisDialog();
                             }
                         });
 
-                Toast.makeText(getContext(), "Menerjemahkan", Toast.LENGTH_SHORT).show();
                 RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(translateRequest);
             }
         });
