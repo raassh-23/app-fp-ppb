@@ -14,19 +14,19 @@ public class TranslationHistory {
     }
 
     public String getSourceLang() {
-        return sourceLang;
+        return sourceLang.trim();
     }
 
     public String getSourceText() {
-        return sourceText;
+        return sourceText.trim();
     }
 
     public String getToLang() {
-        return toLang;
+        return toLang.trim();
     }
 
     public String getToText() {
-        return toText;
+        return toText.trim();
     }
 
     @Override

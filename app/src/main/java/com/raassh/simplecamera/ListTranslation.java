@@ -1,6 +1,7 @@
 package com.raassh.simplecamera;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -98,7 +99,11 @@ public class ListTranslation extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TranslationHistory selected = (TranslationHistory) lvTranslation.getItemAtPosition(i);
-                Log.d("banana", "onItemClick: " + selected.toString());
+
+                FragmentManager fm = getSupportFragmentManager();
+                SelectedTranslation selectedTranslation = SelectedTranslation.newInstance(selected.getSourceLang(),
+                        selected.getSourceText(), selected.getToLang(), selected.getToText());
+                selectedTranslation.show(fm, "Selected Translation");
             }
         });
     }
