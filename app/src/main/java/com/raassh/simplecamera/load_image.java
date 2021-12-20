@@ -42,7 +42,7 @@ import java.io.InputStream;
 public class load_image extends Fragment {
     String selectedLangCode;
     Spinner spLangSelectImg;
-    ImageButton btnCam,btnList,btnSend,btnLoad, btnTranslateFromImg;
+    ImageButton btnCam, btnList, btnTranslateHistory, btnLoad, btnTranslateFromImg;
     Bitmap loaded = null;
     Button detectTextBtn;
     EditText detectedTextView;
@@ -81,7 +81,7 @@ public class load_image extends Fragment {
 
         btnCam = getView().findViewById(R.id.btnCam);
         btnList = getView().findViewById(R.id.btnList);
-        btnSend = getView().findViewById(R.id.btnSend);
+        btnTranslateHistory = getView().findViewById(R.id.btnTranslateHistory);
         btnLoad = getView().findViewById(R.id.btnLoad);
         detectTextBtn = getView().findViewById(R.id.detect_text_image_btn);
         detectedTextView = getView().findViewById(R.id.detectedView);
@@ -100,6 +100,14 @@ public class load_image extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), ListFoto.class);
+                startActivity(it);
+            }
+        });
+
+        btnTranslateHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), ListTranslation.class);
                 startActivity(it);
             }
         });

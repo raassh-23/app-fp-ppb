@@ -41,19 +41,20 @@
 
             <ImageButton
 
-                android:id="@+id/btnSend"
+                android:id="@+id/btnTranslateHistory"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_widget"
-                android:scaleType="fitXY"
 
-                android:src="@drawable/btn_cloud"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_history_24"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/btnList"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,ImageContrastCheck,ImageContrastCheck" />
 
@@ -63,15 +64,14 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="4dp"
-                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_widget"
                 android:scaleType="fitXY"
                 android:src="@drawable/btn_gallery"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/guideline3"
+                app:layout_constraintStart_toEndOf="@+id/btnCam"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 

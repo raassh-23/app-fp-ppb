@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SimpleCamera"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ListTranslation"
+            android:exported="false" />
+        <activity
             android:name=".ListFoto"
             android:exported="false" />
         <activity
@@ -21,6 +24,7 @@
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="ocr" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

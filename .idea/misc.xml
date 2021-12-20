@@ -33,13 +33,16 @@
         <entry key="..\:/AndroidStudioProjects/SimpleCamera/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjects/SimpleCamera/app/src/main/res/layout/foto_item.xml" value="0.264" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/activity_list_foto.xml" value="0.17135416666666667" />
-        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/activity_list_translation.xml" value="0.264" />
+        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/custom_loading.xml" value="0.4" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/custom_spinner.xml" value="0.152" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/foto_item.xml" value="0.2" />
-        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/fragment_load_image.xml" value="0.264" />
+        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/fragment_load_image.xml" value="0.536" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/fragment_translation.xml" value="0.35310344827586204" />
         <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/selected_photo.xml" value="0.264" />
+        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/selected_translated.xml" value="0.16927083333333334" />
+        <entry key="..\:/baru/AndroidStudioProjects/FpPpb/app/src/main/res/layout/translation_item.xml" value="0.4" />
       </map>
     </option>
   </component>
