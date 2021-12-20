@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Translate App</string>
     <string name="apiUrl">https://api-tugas-camera-ppb.herokuapp.com/api/%1$s</string>
     <string name="btnCam">Take a Pic</string>
     <string name="btnList">Gallery</string>
