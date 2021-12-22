@@ -15,7 +15,8 @@ import java.util.Locale;
 
 public class TranslationHistoryAdapter extends ArrayAdapter<TranslationHistory> {
     private static class ViewHolder{
-        TextView lang;
+        TextView langSrc;
+        TextView langDest;
         TextView source;
         TextView to;
     }
@@ -36,7 +37,8 @@ public class TranslationHistoryAdapter extends ArrayAdapter<TranslationHistory> 
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.translation_item, parent, false);
 
-            viewHolder.lang = convertView.findViewById(R.id.tvTranslateLang);
+            viewHolder.langSrc = convertView.findViewById(R.id.tvTranslationHistorySrcLang);
+            viewHolder.langDest =  convertView.findViewById(R.id.tvTranslationHistoryDestLang);
             viewHolder.source = convertView.findViewById(R.id.tvTranslateSource);
             viewHolder.to = convertView.findViewById(R.id.tvTranslateTo);
 
@@ -52,7 +54,8 @@ public class TranslationHistoryAdapter extends ArrayAdapter<TranslationHistory> 
         String sourceLangName = sourceLang.getDisplayLanguage(ind);
         String toLangName = toLang.getDisplayLanguage(ind);
 
-        viewHolder.lang.setText(sourceLangName + " -> " + toLangName);
+        viewHolder.langSrc.setText(sourceLangName);
+        viewHolder.langDest.setText(toLangName);
         viewHolder.source.setText(dtTrans.getSourceText());
         viewHolder.to.setText(dtTrans.getToText());
 

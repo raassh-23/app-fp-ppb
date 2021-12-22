@@ -4,12 +4,16 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +50,10 @@ public class SelectedTranslation extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
+
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
     }
 
     @Override
@@ -65,15 +72,18 @@ public class SelectedTranslation extends DialogFragment {
         String sourceLangName = sourceLangCode.getDisplayLanguage(ind);
         String toLangName = toLangCode.getDisplayLanguage(ind);
 
-        TextView tvLang = getView().findViewById(R.id.tvSelectedTranslateLang);
+        TextView tvLangSrc = getView().findViewById(R.id.tvSelectedTranslateSrcLang);
+        TextView tvLangDest = getView().findViewById(R.id.tvSelectedTranslateDestLang);
         TextView tvSource = getView().findViewById(R.id.tvSelectedTranslateSource);
         TextView tvTo = getView().findViewById(R.id.tvSelectedTranslateTo);
 
-        tvLang.setText(sourceLangName + " -> " + toLangName);
+        tvLangSrc.setText(sourceLangName);
+        tvLangDest.setText(toLangName);
+
         tvSource.setText(sourceText);
         tvTo.setText(toText);
 
-        Button btnClose = getView().findViewById(R.id.btnSelectedTranslateClose);
+        ImageButton btnClose = getView().findViewById(R.id.btnSelectedTranslateClose);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +91,7 @@ public class SelectedTranslation extends DialogFragment {
             }
         });
 
-        Button btnCopySource = getView().findViewById(R.id.btnCopySource);
+        ImageButton btnCopySource = getView().findViewById(R.id.btnCopySource);
         btnCopySource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +103,7 @@ public class SelectedTranslation extends DialogFragment {
             }
         });
 
-        Button btnCopyTo = getView().findViewById(R.id.btnCopyTo);
+        ImageButton btnCopyTo = getView().findViewById(R.id.btnCopyTo);
         btnCopyTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

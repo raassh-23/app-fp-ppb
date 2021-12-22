@@ -1,92 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/dialog_inset"
+
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvSelectedTranslateLang"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_history_selected_lang"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="20dp"
-        android:text="lang to lang"
+        android:orientation="horizontal"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectedTranslateClose">
+
+
+        <TextView
+            android:id="@+id/tvSelectedTranslateSrcLang"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/border_trans_lang"
+            android:backgroundTint="@color/grey_200"
+            android:minWidth="84dp"
+            android:minHeight="18dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="src lang"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_space_lang"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="to"
+            android:textColor="@color/grey_200"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.023"
+            app:layout_constraintStart_toEndOf="@+id/tvSelectedTranslateSrcLang"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+
+            android:id="@+id/tvSelectedTranslateDestLang"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_trans_lang"
+            android:backgroundTint="@color/grey_200"
+            android:minWidth="84dp"
+            android:minHeight="18dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:spinnerMode="dropdown"
+            android:text="dest lang"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintStart_toEndOf="@+id/tv_space_lang"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvSelectedTranslateLang"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:text="lang to lang"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/layout_history_selected_lang" />-->
 
     <TextView
         android:id="@+id/tvSelectedTranslateSourceTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Kalimat Awal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateLang" />
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Text : "
+        android:paddingHorizontal="6dp"
+        android:textColor="@color/black"
 
-    <TextView
-        android:id="@+id/tvSelectedTranslateSource"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="source text"
+        android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateSourceTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_history_selected_lang" />
+
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@drawable/border_trans_text"
+        android:id="@+id/layout_selected_text"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateSourceTitle"
+      >
+
+        <TextView
+            android:id="@+id/tvSelectedTranslateSource"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_weight="0.2"
+            android:justificationMode="inter_word"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:text="source text"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnCopySource"
+            android:src="@drawable/btn_salin"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+         />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tvSelectedTranslateToTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Terjemahan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCopySource" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Result : "
+        android:paddingHorizontal="6dp"
+        android:textColor="@color/black"
 
-    <TextView
-        android:id="@+id/tvSelectedTranslateTo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="result text"
+        android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateToTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_selected_text" />
 
-    <Button
-        android:id="@+id/btnCopySource"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Salin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateSource" />
+    <LinearLayout
+        android:id="@+id/layout_selected_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_trans_text"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateToTitle"
+        tools:layout_editor_absoluteX="27dp">
 
-    <Button
-        android:id="@+id/btnCopyTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Salin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedTranslateTo" />
+        <TextView
+            android:id="@+id/tvSelectedTranslateTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <Button
+            android:layout_weight="0.2"
+            android:justificationMode="inter_word"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:text="result text"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnCopyTo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_salin"
+           />
+
+    </LinearLayout>
+    <ImageButton
         android:id="@+id/btnSelectedTranslateClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Tutup"
+        android:src="@drawable/btn_close"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCopyTo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

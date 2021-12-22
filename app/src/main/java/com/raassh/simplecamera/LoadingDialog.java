@@ -1,6 +1,8 @@
 package com.raassh.simplecamera;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -29,11 +31,13 @@ public class LoadingDialog {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.custom_loading,null);
-        ((TextView)view.findViewById(R.id.tvLoading)).setText(loadingText);
+//        ((TextView)view.findViewById(R.id.tvLoading)).setText(loadingText);
         builder.setView(view);
+
         builder.setCancelable(false);
 
         alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
     }
 

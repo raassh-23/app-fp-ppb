@@ -3,11 +3,15 @@ package com.raassh.simplecamera;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,15 @@ public class SelectedPhoto extends DialogFragment {
     public static SelectedPhoto newInstance(String name, String link, String text, String lang) {
         SelectedPhoto frag = new SelectedPhoto();
         Bundle args = new Bundle();
+        if(name==null){
+            name="-";
+        }
+        if(text==null){
+            text="-";
+        }
+        if(lang==null){
+            lang="-";
+        }
         args.putString("name", name.trim());
         args.putString("link", link.trim());
         args.putString("text", text.trim());
@@ -56,10 +69,11 @@ public class SelectedPhoto extends DialogFragment {
         TextView tvLang = getView().findViewById(R.id.tvSelectedLang);
         tvLang.setText(langName);
 
-        String selectedText = getArguments().getString("text");        TextView tvText = getView().findViewById(R.id.tvSelectedText);
+        String selectedText = getArguments().getString("text");
+        TextView tvText = getView().findViewById(R.id.tvSelectedText);
         tvText.setText(selectedText);
 
-        Button btnClose = getView().findViewById(R.id.btnCloseSelected);
+        ImageButton btnClose = getView().findViewById(R.id.btnCloseSelected);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +81,7 @@ public class SelectedPhoto extends DialogFragment {
             }
         });
 
-        Button btnCopy = getView().findViewById(R.id.btnCopyText);
+        ImageButton btnCopy = getView().findViewById(R.id.btnCopyText);
         btnCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,5 +94,8 @@ public class SelectedPhoto extends DialogFragment {
         });
 
         getDialog().setTitle(getArguments().getString("name"));
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
     }
 }

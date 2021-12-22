@@ -1,78 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp">
+    android:background="@drawable/dialog_inset"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/btnCloseSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+        android:contentDescription="TODO" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/nivSelectedFoto"
         android:layout_width="300dp"
         android:layout_height="250dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_baseline_image_search_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCloseSelected" />
+
+    <LinearLayout
+        android:id="@+id/layout_selected_img_lang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nivSelectedFoto">
+
+        <TextView
+            android:id="@+id/tvDetectedLang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:paddingVertical="12dp"
+            android:text="Detected Lang : "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvSelectedLang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/border_trans_lang"
+            android:backgroundTint="@color/grey_200"
+            android:minWidth="84dp"
+            android:minHeight="18dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:hint="Text"
+
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+
+
+            android:textSize="12sp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tvSelectedLang"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="bahasa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nivSelectedFoto" />
-
-    <TextView
-        android:id="@+id/tvSelectedText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:text="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedLang"
-        app:layout_constraintVertical_bias="0.116" />
-
-    <Button
-        android:id="@+id/btnCopyText"
+        android:id="@+id/tvDetectedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Salin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/lato_bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="12dp"
+        android:layout_marginHorizontal="8dp"
+        android:text="Detected Text : "
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_selected_img_lang" />
 
-    <Button
-        android:id="@+id/btnCloseSelected"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_selected_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Tutup"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/border_trans_text"
+        android:fillViewport="true"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.696"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDetectedText">
+
+        <TextView
+            android:id="@+id/tvSelectedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:text="source text"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnCopyText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_salin"
+
+            />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
