@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -170,7 +171,7 @@ public class load_image extends Fragment {
                                 loadingDialog.dismisDialog();
                             }
                         });
-
+                uploadRequest.setRetryPolicy(new DefaultRetryPolicy(20000, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(uploadRequest);
             }
         });
